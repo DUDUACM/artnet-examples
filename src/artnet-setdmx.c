@@ -30,6 +30,7 @@
 #include <sys/wait.h>
 #include <sys/time.h>
 #else
+#include <winsock2.h>
 #include <windows.h>
 #endif
 #include <time.h>
@@ -162,15 +163,13 @@ void msleep(long time) {
 }
 
 // returns the time in milliseconds
-unsigned long timeGetTime() {
+unsigned long get_time_ms() {
 #ifndef WIN32
   struct timeval tv;
   gettimeofday(&tv, NULL);
   return (unsigned long)tv.tv_sec*1000UL + (unsigned long)tv.tv_usec/1000;
 #else
-  SYSTEMTIME st;
-  GetSystemTime(&st);
-  return (unsigned long)st.wSecond*1000UL + (unsigned long)st.wMilliseconds;
+  return (unsigned long)timeGetTime();
 #endif
 }
 
@@ -192,12 +191,12 @@ int do_fade(artnet_node node, opts_t *ops) {
   artnet_send_dmx(node, 0, chan, dmx);
   msleep(40);
 
-  const unsigned long tstart=timeGetTime();
+  const unsigned long tstart=get_time_ms();
   const unsigned long tend=tstart+(int)(fadetime*1000.0);
   unsigned long t=tstart;
 
   while (t<=tend) {
-    t=timeGetTime();
+    t=get_time_ms();
 
     if (fadetime)
       p = (float)(t-tstart)/1000.0f/fadetime;
@@ -216,7 +215,7 @@ int do_fade(artnet_node node, opts_t *ops) {
       printf("failed to send: %s\n", artnet_strerror() );
     }
 
-    t=timeGetTime(); // get current time, because the last time is too old (due to the sleep)
+    t=get_time_ms(); // get current time, because the last time is too old (due to the sleep)
   }
 
   return 0;
