@@ -3,6 +3,13 @@ This package provides example programs for use with libartnet.
 
 For installation notes, see the INSTALL file.
 
+## Build Systems
+
+This project supports two build systems:
+
+1. **Autotools** (traditional): See INSTALL file for instructions
+2. **CMake** (recommended): See CMAKE_BUILD.md for instructions
+
 Examples provided:
 
  A. artnet-usb

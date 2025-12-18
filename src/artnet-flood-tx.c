@@ -36,6 +36,7 @@ int delay = 25000;
 #ifndef WIN32
 #include <sys/select.h>
 #else
+#include <winsock2.h>
 #include <windows.h>
 #endif
 

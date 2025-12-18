@@ -12,3 +12,23 @@ libtool
 stamp-h1
 .deps
 .libs
+
+# CMake
+build/
+build_test/
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+*.cbp
+CMakeDoxyfile.in
+CMakeDoxygenDefaults.cmake
+cmake_config.cmake
+
+# vscode
+.vscode/
+.cache/
